@@ -7,5 +7,71 @@ package org.pahappa.systems.ticketing.models;
  * related to the user's request or issue.
  */
 public class Ticket {
+    private String customerName;
+    private String contactInfo;
+    private String ticketCategory;
+    private String description;
+    private String status;
+    private String priority;
 
+    
+
+    public Ticket(String customerName, String contactInfo, String ticketCategory, String description, String status, String priority) {
+        this.customerName = customerName;
+        this.contactInfo = contactInfo;
+        this.ticketCategory = ticketCategory;
+        this.description = description;
+        this.status = status;
+        this.priority = priority;
+    }
+    
+    // Getter and setter methods for ticket attributes
+    
+    public String getCustomerName() {
+        return customerName;
+    }
+
+    public void setCustomerName(String customerName) {
+        this.customerName = customerName;
+    }
+
+    public String getContactInfo() {
+        return contactInfo;
+    }
+
+    public void setContactInfo(String contactInfo) {
+        this.contactInfo = contactInfo;
+    }
+
+    public String getTicketCategory() {
+        return ticketCategory;
+    }
+
+    public void setTicketCategory(String ticketCategory) {
+        this.ticketCategory = ticketCategory;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+        public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+    
+    public String getPriority() {
+        return priority;
+    }
+
+    public void setPriority(String priority) {
+        this.priority = priority;
+    }
 }

@@ -2,6 +2,8 @@ package org.pahappa.systems.ticketing.views;
 
 import org.pahappa.systems.ticketing.services.TicketService;
 import org.pahappa.systems.ticketing.services.impl.TicketServiceImpl;
+import org.pahappa.systems.ticketing.constants.TicketStatus;
+import org.pahappa.systems.ticketing.models.Ticket;
 
 import java.util.Scanner;
 
@@ -60,7 +62,39 @@ public class TicketView implements BaseTicketView {
 
     @Override
     public void createTicket() {
+        // Prompt the agent to enter ticket details
+        System.out.println("Enter customer name: ");
+        String customerName = scanner.nextLine();
+        System.out.println("Enter contact information: ");
+        String contactInfo = scanner.nextLine();
+        System.out.println("Enter ticket category: ");
+        String ticketCategory = scanner.nextLine();
+        System.out.println("Enter brief description: ");
+        String description = scanner.nextLine();
+        
+         // Display ticket status menu
+        System.out.println("Select ticket status: ");
+        for (TicketStatus status : TicketStatus.values()) {
+            System.out.println(status.ordinal() + 1 + ". " + status);
+        }
+        int statusChoice = scanner.nextInt();
+        
+        // Get the selected ticket status
+        TicketStatus[] statusValues = TicketStatus.values();
+        TicketStatus selectedStatus = statusValues[statusChoice - 1];
 
+        System.out.println("Enter ticket priority level: ");
+        String priority = scanner.nextLine();
+        
+        // Create a new ticket object
+        Ticket newTicket = new Ticket(customerName, contactInfo, ticketCategory, description, selectedStatus.toString(), priority);
+        
+        // Save the ticket to the database or perform any necessary operations
+        
+        // Display success message
+        System.out.println("Ticket created successfully!");
+        System.out.println("\n");
+        ticketService.createTicket(newTicket);
     }
 
     @Override
