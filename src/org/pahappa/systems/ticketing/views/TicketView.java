@@ -31,7 +31,7 @@ public class TicketView implements BaseTicketView {
             System.out.println("6. Exit");
             System.out.println();
 
-            int choice = scanner.nextInt();
+            int choice = getValidChoice();
             scanner.nextLine(); // Consume the newline character
 
             switch (choice) {
@@ -72,29 +72,44 @@ public class TicketView implements BaseTicketView {
         System.out.println("Enter brief description: ");
         String description = scanner.nextLine();
         
-         // Display ticket status menu
-        System.out.println("Select ticket status: ");
-        for (TicketStatus status : TicketStatus.values()) {
-            System.out.println(status.ordinal() + 1 + ". " + status);
-        }
-        int statusChoice = scanner.nextInt();
-        
-        // Get the selected ticket status
-        TicketStatus[] statusValues = TicketStatus.values();
-        TicketStatus selectedStatus = statusValues[statusChoice - 1];
+         String selectedStatus = displayMenuAndGetStatus();
 
         System.out.println("Enter ticket priority level: ");
         String priority = scanner.nextLine();
         
         // Create a new ticket object
-        Ticket newTicket = new Ticket(customerName, contactInfo, ticketCategory, description, selectedStatus.toString(), priority);
-        
-        // Save the ticket to the database or perform any necessary operations
+        Ticket newTicket = new Ticket(customerName, contactInfo, ticketCategory, description, selectedStatus, priority);
         
         // Display success message
         System.out.println("Ticket created successfully!");
         System.out.println("\n");
         ticketService.createTicket(newTicket);
+    }
+
+    private int getValidChoice() {
+        while (true) {
+            try {
+                return scanner.nextInt();
+            } catch (Exception e) {
+                System.out.println("Invalid input. Please enter a valid choice.");
+                System.out.println();
+                scanner.nextLine(); // Consume the invalid input
+            }
+        }
+    }
+
+    private String displayMenuAndGetStatus(){
+        // Display ticket status menu
+        System.out.println("Select ticket status: ");
+        for (TicketStatus status : TicketStatus.values()) {
+            System.out.println(status.ordinal() + 1 + ". " + status);
+        }
+        int statusChoice = getValidChoice();
+        
+        // Get the selected ticket status
+        TicketStatus[] statusValues = TicketStatus.values();
+        TicketStatus selectedStatus = statusValues[statusChoice - 1];
+        return selectedStatus.toString();
     }
 
     @Override
