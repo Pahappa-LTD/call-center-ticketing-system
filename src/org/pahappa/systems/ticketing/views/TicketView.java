@@ -1,5 +1,6 @@
 package org.pahappa.systems.ticketing.views;
 
+import org.pahappa.systems.ticketing.models.Ticket;
 import org.pahappa.systems.ticketing.services.TicketService;
 import org.pahappa.systems.ticketing.services.impl.TicketServiceImpl;
 
@@ -60,7 +61,29 @@ public class TicketView implements BaseTicketView {
 
     @Override
     public void createTicket() {
+        Ticket ticket = new Ticket();
 
+        System.out.println("Enter the ticket category:");
+        String category = scanner.nextLine();
+        ticket.setCategory(category);
+
+        System.out.println("Enter the customer name:");
+        String customer = scanner.nextLine();
+        ticket.setCustomer(customer);
+
+        System.out.println("Enter the issue description:");
+        String issue = scanner.nextLine();
+        ticket.setIssue(issue);
+
+        System.out.println("Enter the ticket status:");
+        String status = scanner.nextLine();
+        ticket.setStatus(status);
+
+        System.out.println("Enter the priority level:");
+        String priorityLevel = scanner.nextLine();
+        ticket.setPriorityLevel(priorityLevel);
+
+        ticketService.createTicket(ticket);
     }
 
     @Override

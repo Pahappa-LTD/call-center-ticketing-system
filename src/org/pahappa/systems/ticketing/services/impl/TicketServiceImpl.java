@@ -4,13 +4,21 @@ import org.pahappa.systems.ticketing.constants.TicketStatus;
 import org.pahappa.systems.ticketing.models.Ticket;
 import org.pahappa.systems.ticketing.services.TicketService;
 
+import java.util.ArrayList;
 import java.util.List;
+
 
 public class TicketServiceImpl implements TicketService {
 
+    private final List<Ticket> ticketList;
+
+    public TicketServiceImpl() {
+        this.ticketList = new ArrayList<>();
+    }
     @Override
     public void createTicket(Ticket ticket) {
-
+        ticketList.add(ticket);
+        System.out.println("Ticket created successfully.");
     }
 
     @Override
