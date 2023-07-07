@@ -1,8 +1,13 @@
 package org.pahappa.systems.ticketing.views;
 
+import org.pahappa.systems.ticketing.constants.PriorityLevel;
+import org.pahappa.systems.ticketing.constants.TicketStatus;
+import org.pahappa.systems.ticketing.models.Ticket;
 import org.pahappa.systems.ticketing.services.TicketService;
 import org.pahappa.systems.ticketing.services.impl.TicketServiceImpl;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 public class TicketView implements BaseTicketView {
@@ -29,9 +34,12 @@ public class TicketView implements BaseTicketView {
             System.out.println("6. Exit");
             System.out.println();
 
+            
+           System.out.println("Choose a number");
+           if(scanner.hasNextInt()){
             int choice = scanner.nextInt();
-            scanner.nextLine(); // Consume the newline character
-
+            scanner.nextLine();
+          
             switch (choice) {
                 case 1:
                     createTicket();
@@ -56,30 +64,116 @@ public class TicketView implements BaseTicketView {
 
             }
         }
+        else{
+            String invalid = scanner.nextLine();
+            System.out.println("Invalid choice.Please try again");
+        }
+    }
+
     }
 
     @Override
     public void createTicket() {
+    Ticket ticket = new Ticket();//creating an object to access the attributes in the Ticket class
+    List<Ticket> result =ticketService.getAllTickets();
+    int lastTicketNumber =result.size(); 
+    int nextTicketNumber = lastTicketNumber + 1;
+    String ticketNumber = String.format("%04d", nextTicketNumber); // Formatting the ticket number with leading zeros if necessary
+    ticket.setTicketNo(ticketNumber);
+
+     System.out.println("Enter the your agent ID:");
+     ticket.setAgentID(scanner.nextLine());
+
+     System.out.println("Enter the customer ID:");
+      ticket.setCustomerID(scanner.nextLine());
+
+     System.out.println("Enter the ticket category number:");
+      ticket.setCategoryID(scanner.nextLine());
+
+     boolean validInput = false;
+     while(!validInput){
+     System.out.println("Enter the status of the ticket based on these options:");
+     for(TicketStatus status : TicketStatus.values()){
+        System.out.println(status.name());
+     }
+      String userInput = scanner.nextLine();
+       for(TicketStatus status : TicketStatus.values()){
+        if(status.name().equals(userInput)){
+            validInput = true;
+          ticket.setStatus(userInput);
+          break;
+          
+        }
+    }
+    if(!validInput){
+        System.out.println("Enter the right option");
+    }
+      
+    }
+
+    boolean valid = false;
+     while(!valid){
+     System.out.println("Enter the priority of the ticket based on these options:");
+     for(PriorityLevel priority : PriorityLevel.values()){
+        System.out.println(priority.name());
+     }
+      String userInput = scanner.nextLine();
+       for(PriorityLevel priority : PriorityLevel.values()){
+        if(priority.name().equals(userInput)){
+            valid = true;
+          ticket.setPriorityLevel(userInput);
+          break;
+        }
+    }
+    if(!valid){
+        System.out.println("Enter the right option");
+    }
+      
+    }
+
+
+     
+
+     System.out.println("Enter the description of the issue:");
+      ticket.setDescriptionOfIsuue(scanner.nextLine());
+
+     System.out.println("Enter the any other additional comments:");
+      ticket.setAdditionalComments(scanner.nextLine());
+
+     ticketService.createTicket(ticket); 
+
 
     }
 
     @Override
     public void getAllTickets() {
-
+     
+       
+      
     }
 
     @Override
     public void getTicketsOfStatus() {
-
+     
+              
     }
+
+    
+
+        
+    
 
     @Override
     public void updateTicket() {
-
+   
     }
 
     @Override
-    public void deleteTicket() {
+   public void deleteTicket() {
+  
 
-    }
+   
+
+
+}
 }
