@@ -225,7 +225,23 @@ public class TicketView implements BaseTicketView {
 
     @Override
     public void updateTicket() {
-   
+        System.out.println("Enter the ticket Number of the ticket to be updated:");
+        String ticketNumber = scanner.next();
+        List<Ticket> result = ticketService.getAllTickets();
+        List<Ticket> update = new ArrayList<>();
+        for(Ticket ticket:result){
+         if(ticket.getTicketNo().equals(ticketNumber)){
+             update.add(ticket);
+           ticketService.updateTicket(ticket);
+             
+         }
+     
+        }
+        if(update.isEmpty()){
+          System.out.println("The ticket number entered does not exist");
+          System.out.printf("==================");
+        }
+     
     }
 
     @Override

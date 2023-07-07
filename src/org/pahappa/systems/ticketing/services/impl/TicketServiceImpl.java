@@ -44,7 +44,28 @@ public class TicketServiceImpl implements TicketService {
 
     @Override
     public void updateTicket(Ticket updatedTicket) {
-     
+        System.out.println("What would you like to update;status or priority level");
+        Scanner input = new Scanner(System.in);
+   
+        String userInput = input.next();
+        if(userInput.equals("status")){
+           System.out.println("Enter status update based on the following:");
+           for(TicketStatus status : TicketStatus.values()){
+           System.out.println(status.name());
+        }
+           updatedTicket.setStatus(input.next());
+        }
+        
+        else{
+           System.out.println("Enter prority Level update based on the following:");
+            for(PriorityLevel priority : PriorityLevel.values()){
+           System.out.println(priority.name());
+        }
+           updatedTicket.setPriorityLevel(input.next());
+        }
+        System.out.println("The ticket has been updated");
+        System.out.printf("==================");
+   
     }
 
     @Override
