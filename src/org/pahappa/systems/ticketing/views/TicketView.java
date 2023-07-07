@@ -172,7 +172,49 @@ public class TicketView implements BaseTicketView {
 
     @Override
     public void getTicketsOfStatus() {
-     
+        boolean validInput = false;
+        while(!validInput){
+        System.out.println("Enter the number of the status of the tickets you want to view based on the following:");
+        for(TicketStatus status : TicketStatus.values()){
+        System.out.println(status.name());
+     }
+     String userInput = scanner.next();
+     for(TicketStatus status : TicketStatus.values()){
+        if(status.name().equals(userInput)){
+          validInput=true;
+          break;
+        }
+    }
+    if(!validInput){
+        System.out.println("You entered an invalid option. Please trya again");
+    }
+         if(validInput){
+
+        List<Ticket> result = ticketService.getTicketsOfStatus(TicketStatus.valueOf(userInput));
+        if(!result.isEmpty()){
+          
+            for(Ticket ticket:result){
+           System.out.println("AgentID:"+ticket.getAgentID());
+            System.out.println("TicketNo:"+ticket.getTicketNo());
+            System.out.println("CustomerNo:"+ticket.getCustomerID());
+            System.out.println("CategoryID:"+ticket.getCategoryID());
+            System.out.println("Status:"+ticket.getStatus());
+            System.out.println("Priority Level:"+ticket.getPriorityLevel());
+            System.out.println("Issue:"+ticket.getDescriptionOfIsuue());
+            System.out.println("Additional Comments:"+ticket.getAdditionalComments());
+            System.out.printf("==================");
+            }
+            
+
+        }
+        else{
+            System.out.println("There are no tickets with that status");
+            System.out.printf("==================");
+        }
+    }
+}
+      
+
               
     }
 
