@@ -246,10 +246,36 @@ public class TicketView implements BaseTicketView {
 
     @Override
    public void deleteTicket() {
-  
+    System.out.println("Enter the ticket Number of the ticket to be deleted:");
+    String ticketNumber = scanner.next(); 
+    List<Ticket> result = ticketService.getAllTickets();
+    List<Ticket> ticketsToDelete = new ArrayList<>();
+ 
+   
+    for(Ticket ticket:result){
+     if(ticket.getTicketNo().equals(ticketNumber)){
+      
+    ticketsToDelete.add(ticket) ;
+     }
+ 
+    
+ }
+ 
+  if(ticketsToDelete.isEmpty()){
+     System.out.println("The ticket does not exist");
+  }
+ else{
+     for (Ticket ticket : ticketsToDelete) {
+         int index = result.indexOf(ticket);
+         ticketService.deleteTicket(index);
+     }
+ }
+ 
+     }
+ 
 
    
 
 
 }
-}
+
