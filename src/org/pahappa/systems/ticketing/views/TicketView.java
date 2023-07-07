@@ -140,8 +140,34 @@ public void createTicket() {
 
     @Override
     public void getTicketsOfStatus() {
-
-    }
+List<Ticket> filteredTickets;
+Scanner scanner = new Scanner(System.in);
+// Prompt the user to choose a status from the menu
+System.out.println("Choose a status to filter tickets:");
+TicketStatus[] statusValues = TicketStatus.values();
+for (int i = 0; i < statusValues.length; i++) {
+System.out.println((i + 1) + ". " + statusValues[i]);
+}
+int statusChoice = scanner.nextInt();
+// Check if the status choice is within the valid range
+if (statusChoice >= 1 && statusChoice <= statusValues.length) {
+TicketStatus chosenStatus = statusValues[statusChoice - 1];
+// Filter tickets by the chosen status using TicketServiceImpl
+// TicketServiceImpl ticketService = new TicketServiceImpl();
+filteredTickets = ticketServiceImpl.getTicketsOfStatus(chosenStatus);
+// Print the filtered tickets
+for (Ticket ticket : filteredTickets) {
+System.out.println("Customer Name: " + ticket.getCustomerName());
+System.out.println("Contact Information: " + ticket.getContactInfo());
+System.out.println("Ticket Category: " + ticket.getTicketCategory());
+System.out.println("Description: " + ticket.getDescription());
+System.out.println("Status: " + ticket.getStatus());
+System.out.println();
+}
+} else {
+System.out.println("Invalid status choice.");
+}
+}
 
     @Override
     public void updateTicket() {
