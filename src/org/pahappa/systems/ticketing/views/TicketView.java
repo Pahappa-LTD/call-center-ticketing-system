@@ -148,7 +148,25 @@ public class TicketView implements BaseTicketView {
     @Override
     public void getAllTickets() {
      
-       
+        List<Ticket> result =ticketService.getAllTickets();
+        
+        for(Ticket ticket:result){
+            System.out.println("AgentID:"+ticket.getAgentID());
+            System.out.println("TicketNo:"+ticket.getTicketNo());
+            System.out.println("CustomerNo:"+ticket.getCustomerID());
+            System.out.println("CategoryID:"+ticket.getCategoryID());
+            System.out.println("Status:"+ticket.getStatus());
+            System.out.println("Priority Level:"+ticket.getPriorityLevel());
+            System.out.println("Issue:"+ticket.getDescriptionOfIsuue());
+            System.out.println("Additional Comments:"+ticket.getAdditionalComments());
+            System.out.printf("==================");
+
+
+
+
+        }
+      
+
       
     }
 
