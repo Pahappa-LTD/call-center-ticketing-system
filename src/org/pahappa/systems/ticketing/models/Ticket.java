@@ -1,5 +1,6 @@
 package org.pahappa.systems.ticketing.models;
 
+
 /**
  * A ticket refers to a unit of work or a request that is submitted
  * by a user or customer to seek assistance, report an issue, or request a service.
@@ -7,6 +8,7 @@ package org.pahappa.systems.ticketing.models;
  * related to the user's request or issue.
  */
 public class Ticket {
+    private String ticketId;
     private String customerName;
     private String contactInfo;
     private String ticketCategory;
@@ -16,7 +18,8 @@ public class Ticket {
 
     
 
-    public Ticket(String customerName, String contactInfo, String ticketCategory, String description, String status, String priority) {
+    public Ticket(String ticketId, String customerName, String contactInfo, String ticketCategory, String description, String status, String priority) {
+        this.ticketId = ticketId;
         this.customerName = customerName;
         this.contactInfo = contactInfo;
         this.ticketCategory = ticketCategory;
@@ -24,9 +27,11 @@ public class Ticket {
         this.status = status;
         this.priority = priority;
     }
-    
-    // Getter and setter methods for ticket attributes
-    
+
+    public String getTicketId() {
+        return ticketId;
+    }
+
     public String getCustomerName() {
         return customerName;
     }
